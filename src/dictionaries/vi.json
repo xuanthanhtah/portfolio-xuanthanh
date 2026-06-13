@@ -1,0 +1,92 @@
+{
+  "metadata": {
+    "title": "Lê Xuân Thành | Kỹ sư Frontend Doanh nghiệp",
+    "description": "Kỹ sư Phần mềm Frontend với hơn 3 năm kinh nghiệm phát triển các ứng dụng web an toàn, có khả năng mở rộng bằng React, TypeScript và các UI framework hiện đại."
+  },
+  "navigation": {
+    "work": "Dự án",
+    "about": "Giới thiệu"
+  },
+  "profile": {
+    "name": "Lê Xuân Thành - Frontend Engineer",
+    "status": "Sẵn sàng cho hành trình mới!",
+    "headline": {
+      "line1": "Xây dựng các hệ thống hiệu năng cao"
+    },
+    "subtext": "Kỹ sư Phần mềm Frontend với hơn 3 năm kinh nghiệm phát triển các ứng dụng web an toàn, có khả năng mở rộng bằng React, TypeScript và các UI framework hiện đại.",
+    "ctaText": "Xem các dự án"
+  },
+  "philosophy": {
+    "title": "Triết lý",
+    "clauses": [
+      "Tôi tin vào việc xây dựng kiến trúc frontend module hóa, nơi logic chặt chẽ giao thoa với trực giác con người.",
+      "Bằng cách kết nối sự chính xác tuyệt đối của TypeScript với các hệ thống thiết kế chuẩn hóa và có thể mở rộng,",
+      "chúng tôi biến các bảng dữ liệu dung lượng lớn và quy trình làm việc phức tạp thành các trải nghiệm số mượt mà."
+    ]
+  },
+  "capabilities": {
+    "title": "Năng lực",
+    "cards": {
+      "core": {
+        "tag": "Công nghệ cốt lõi",
+        "title": "Kiến trúc React Doanh nghiệp",
+        "description": "TypeScript • React • Zustand • React Query • Redux Toolkit.\n\nThiết kế các ứng dụng trang đơn (SPA) hiệu năng cao, xử lý luồng dữ liệu bất đồng bộ phức tạp."
+      },
+      "motion": {
+        "tag": "Hiệu năng",
+        "title": "Tối ưu hóa",
+        "description": "• Tài nguyên API: -40%\n• Tải Trang Dashboard: -1s\n• Trải nghiệm UX: Tối ưu cho tải lượng người dùng đồng thời cao."
+      },
+      "system": {
+        "tag": "Khả năng mở rộng",
+        "title": "Kỹ nghệ Thành phần UI",
+        "description": "Ant Design • Tailwind CSS • Material UI.\n\nChuẩn hóa hệ thống thư viện giao diện tái sử dụng, tối ưu 30% thời gian phát triển."
+      },
+      "tooling": {
+        "tag": "Vận hành",
+        "title": "Quy trình & DevOps",
+        "description": "GitFlow • Đánh giá Mã nguồn • Agile • Triển khai IIS Server.\n\nBảo đảm chất lượng mã nguồn từ bước cam kết (commit) đến môi trường sản xuất."
+      },
+      "creative": {
+        "tag": "Bảo mật Fintech",
+        "title": "Tích hợp Trọng yếu",
+        "description": "Microsoft Azure AD (OAuth2) • JWT Refresh Token • Đồng bộ Core Banking.\n\nPhát triển các phân quyền bảo mật chặt chẽ và quy trình phê duyệt đa cấp."
+      }
+    }
+  },
+  "projects": {
+    "title": "Dự án Tiêu biểu",
+    "list": [
+      {
+        "id": "kpi-powerhome",
+        "title": "Hệ thống Quản lý Hiệu suất HDBank (KPI PowerHome)",
+        "category": "Frontend Doanh nghiệp / Hệ thống Quản lý",
+        "year": "2026"
+      },
+      {
+        "id": "ehrp",
+        "title": "Nền tảng Quản trị Nhân sự Nhân viên (EHRP)",
+        "category": "Hệ thống Nhân sự Nội bộ / Vận hành Cốt lõi",
+        "year": "2025"
+      },
+      {
+        "id": "money-transfer",
+        "title": "Hệ thống Xử lý Giao dịch Chuyển tiền Quốc tế",
+        "category": "Ngân hàng số / Tích hợp Hệ thống Core",
+        "year": "2025"
+      }
+    ]
+  },
+  "footer": {
+    "title": "Liên hệ",
+    "cta": "Kết nối với tôi",
+    "email": "thanh26092000@gmail.com",
+    "socials": {
+      "email": "Email",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "resume": "Hồ sơ"
+    },
+    "signature": "Thiết kế & Lập trình chỉn chu.\nBản quyền thuộc về © 2026."
+  }
+}

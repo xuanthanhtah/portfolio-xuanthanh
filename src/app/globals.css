@@ -1,26 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --color-bg-light: #FAFAFA;
+  --color-text-light: #171717;
+  --color-accent-light: #8FA89B;
+  --color-card-light: #FFFFFF;
+  --color-border-light: rgba(23, 23, 23, 0.08);
+
+  --color-bg-dark: #090A0C;
+  --color-text-dark: #E2E8F0;
+  --color-accent-dark: #9DB3A7;
+  --color-card-dark: #121316;
+  --color-border-dark: rgba(226, 232, 240, 0.08);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-bg-light);
+  --foreground: var(--color-text-light);
+  --accent: var(--color-accent-light);
+  --border: var(--color-border-light);
+  --card: var(--color-card-light);
+  --transition-speed: 0.6s;
+  --transition-ease: cubic-bezier(0.85, 0, 0.15, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root.dark {
+  --background: var(--color-bg-dark);
+  --foreground: var(--color-text-dark);
+  --accent: var(--color-accent-dark);
+  --border: var(--color-border-dark);
+  --card: var(--color-card-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color var(--transition-speed) var(--transition-ease);
 }
 
 body {
-  background: var(--background);
+  font-family: var(--font-sans);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  transition: background-color var(--transition-speed) var(--transition-ease), color 0.3s ease;
 }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(143, 168, 155, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(143, 168, 155, 0.4);
+}
+
+/* Double Whitespace Utilities */
+.section-padding {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* Text Clipping Mask */
+.mask-container {
+  overflow: hidden;
+  display: block;
+}
+
+/* Grid overlay for subtle architecture vibe */
+.bg-grid-overlay {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(143, 168, 155, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(143, 168, 155, 0.03) 1px, transparent 1px);
+}
+
+.dark .bg-grid-overlay {
+  background-image: 
+    linear-gradient(to right, rgba(157, 179, 167, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(157, 179, 167, 0.02) 1px, transparent 1px);
+}
+
+/* View Transition Styles for Dark Mode Toggle */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
+

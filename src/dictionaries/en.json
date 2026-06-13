@@ -1,0 +1,92 @@
+{
+  "metadata": {
+    "title": "Lê Xuân Thành | Enterprise Frontend Engineer",
+    "description": "Frontend Software Engineer with 3+ years of experience engineering secure, scalable web applications using React, TypeScript, and modern UI frameworks."
+  },
+  "navigation": {
+    "work": "Work",
+    "about": "About"
+  },
+  "profile": {
+    "name": "Lê Xuân Thành - Frontend Engineer",
+    "status": "Ready for a new journey!",
+    "headline": {
+      "line1": "Building High-Performance Systems"
+    },
+    "subtext": "Frontend Software Engineer with 3+ years of experience engineering secure, scalable web applications using React, TypeScript, and modern UI frameworks.",
+    "ctaText": "View my projects"
+  },
+  "philosophy": {
+    "title": "Philosophy",
+    "clauses": [
+      "I believe in creating modular front-end architecture where strict logic meets human intuition.",
+      "By bridging the absolute precision of TypeScript with scalable, standard design systems,",
+      "we transform high-volume data tables and intricate workflows into seamless digital journeys."
+    ]
+  },
+  "capabilities": {
+    "title": "Capabilities",
+    "cards": {
+      "core": {
+        "tag": "Core Stack",
+        "title": "Enterprise React Architecture",
+        "description": "TypeScript • React • Zustand • React Query • Redux Toolkit.\n\nArchitecting high-performance single-page apps capable of handling complex data flows."
+      },
+      "motion": {
+        "tag": "Performance",
+        "title": "Optimization",
+        "description": "• API Overhead: -40%\n• Dashboard Load: -1s\n• UX: Optimized for high concurrent user loads."
+      },
+      "system": {
+        "tag": "Scalability",
+        "title": "UI Component Engineering",
+        "description": "Ant Design • Tailwind CSS • Material UI.\n\nStandardizing robust, reusable UI libraries to slash dev time."
+      },
+      "tooling": {
+        "tag": "Operations",
+        "title": "Workflow & DevOps",
+        "description": "GitFlow • Code Review • Agile • IIS Server Deployment.\n\nEnsuring code quality from commit to on-premise production."
+      },
+      "creative": {
+        "tag": "Fintech Security",
+        "title": "Mission-Critical Integrations",
+        "description": "Microsoft Azure AD (OAuth2) • JWT Refresh Token • Core Banking Sync.\n\nEngineering secure permission layers and approval workflows."
+      }
+    }
+  },
+  "projects": {
+    "title": "Selected Work",
+    "list": [
+      {
+        "id": "kpi-powerhome",
+        "title": "HDBank Performance Management System (KPI PowerHome)",
+        "category": "Enterprise Frontend / Management System",
+        "year": "2026"
+      },
+      {
+        "id": "ehrp",
+        "title": "Employee Human Resources Platform (EHRP)",
+        "category": "Internal HR Platform / Core Operations",
+        "year": "2025"
+      },
+      {
+        "id": "money-transfer",
+        "title": "International Money Transfer Processing System",
+        "category": "Digital Banking / Core Integration",
+        "year": "2025"
+      }
+    ]
+  },
+  "footer": {
+    "title": "Get in Touch",
+    "cta": "Let's connect",
+    "email": "thanh26092000@gmail.com",
+    "socials": {
+      "email": "Email",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "resume": "Resume"
+    },
+    "signature": "Designed & Engineered with rigor.\nAll rights reserved © 2026."
+  }
+}
