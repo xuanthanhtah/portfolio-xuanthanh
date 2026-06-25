@@ -48,7 +48,7 @@ export function HeroScene() {
 
     // ── Resolve accent color: black in dark mode, sage accent in light mode ──
     const isDark = document.documentElement.classList.contains("dark");
-    const accentHex = !isDark ? "#000000" : "#8FA89B";
+    const accentHex = isDark ? "#8FA89B" : "#000000";
 
     // ── Scene setup ──────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({
