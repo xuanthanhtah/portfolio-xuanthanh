@@ -34,7 +34,7 @@ const PARTICLE_SIZE = 2.2;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export function HeroScene() {
+export function HeroScene({ theme }: { theme?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export function HeroScene() {
     ).matches;
 
     // ── Resolve accent color: black in dark mode, sage accent in light mode ──
-    const isDark = document.documentElement.classList.contains("dark");
+    const isDark = theme === "dark";
     const accentHex = isDark ? "#8FA89B" : "#000000";
 
     // ── Scene setup ──────────────────────────────────────────────────────────

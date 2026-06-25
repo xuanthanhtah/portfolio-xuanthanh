@@ -146,7 +146,7 @@ export function Hero({ dict }: HeroProps) {
            * pointer-events: none is set on the canvas itself — the
            * parent div can still receive events if needed in future.
            */}
-          {mounted && <HeroScene key={resolvedTheme} />}
+          {mounted && <HeroScene key={resolvedTheme} theme={resolvedTheme} />}
 
           {/* Subtle vignette overlay to blend edges into the bg */}
           <div
