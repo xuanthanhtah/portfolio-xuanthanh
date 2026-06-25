@@ -3,7 +3,9 @@
 import { motion, Variants } from "framer-motion";
 import { Magnetic } from "./ui/magnetic";
 import { ThemeToggle } from "./theme-toggle";
+import { useTheme } from "next-themes";
 import { LanguageSwitcher } from "./language-switcher";
+import { useEffect, useState } from "react";
 import { Dictionary } from "@/lib/dictionary";
 import { HeroScene } from "./hero-scene";
 
@@ -13,6 +15,12 @@ interface HeroProps {
 
 export function Hero({ dict }: HeroProps) {
   const { profile, navigation } = dict;
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Animation variants for stagger reveal
   const containerVariants: Variants = {
@@ -138,7 +146,7 @@ export function Hero({ dict }: HeroProps) {
            * pointer-events: none is set on the canvas itself — the
            * parent div can still receive events if needed in future.
            */}
-          <HeroScene />
+          {mounted && <HeroScene key={resolvedTheme} />}
 
           {/* Subtle vignette overlay to blend edges into the bg */}
           <div

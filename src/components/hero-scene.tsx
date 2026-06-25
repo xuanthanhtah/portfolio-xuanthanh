@@ -46,10 +46,9 @@ export function HeroScene() {
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    // ── Resolve accent color from CSS variable ──
-    const computedStyle = getComputedStyle(document.documentElement);
-    const accentHex =
-      computedStyle.getPropertyValue("--color-accent-dark").trim() || "#9DB3A7";
+    // ── Resolve accent color: black in dark mode, sage accent in light mode ──
+    const isDark = document.documentElement.classList.contains("dark");
+    const accentHex = !isDark ? "#000000" : "#8FA89B";
 
     // ── Scene setup ──────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({
