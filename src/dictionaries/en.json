@@ -5,7 +5,7 @@
   },
   "navigation": {
     "work": "Projects",
-    "about": "About"
+    "skills": "Skills"
   },
   "profile": {
     "name": "Le Xuan Thanh",
@@ -14,7 +14,8 @@
       "line1": "Building high-performance web apps with seamless UX."
     },
     "subtext": "I am a Frontend Engineer with over 3 years of hands-on experience in React and TypeScript. I specialize in turning complex business logic and massive datasets into intuitive, clean, and highly optimized dashboards.",
-    "ctaText": "View Projects"
+    "ctaText": "View Projects",
+    "cvText": "My CV"
   },
   "philosophy": {
     "title": "My Approach",

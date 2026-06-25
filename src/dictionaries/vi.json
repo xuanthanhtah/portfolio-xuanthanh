@@ -5,7 +5,7 @@
   },
   "navigation": {
     "work": "Dự án",
-    "about": "Giới thiệu"
+    "skills": "Kỹ năng"
   },
   "profile": {
     "name": "Lê Xuân Thành",
@@ -14,7 +14,8 @@
       "line1": "Xây dựng các hệ thống hiệu năng cao"
     },
     "subtext": "Kỹ sư Phần mềm Frontend với hơn 3 năm kinh nghiệm phát triển các ứng dụng web an toàn, có khả năng mở rộng bằng React, TypeScript và các UI framework hiện đại.",
-    "ctaText": "Xem các dự án"
+    "ctaText": "Xem các dự án",
+    "cvText": "Hồ sơ (CV)"
   },
   "philosophy": {
     "title": "Góc nhìn làm nghề",

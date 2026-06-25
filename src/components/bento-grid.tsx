@@ -24,7 +24,7 @@ export function BentoGrid({ dict }: BentoGridProps) {
   const creativeCard = capabilities.cards.creative;
 
   return (
-    <section className="section-padding px-6 md:px-16 w-full max-w-7xl mx-auto select-none">
+    <section id="skills" className="section-padding px-6 md:px-16 w-full max-w-7xl mx-auto select-none">
       {/* Section Indicator */}
       <div className="mb-12">
         <span className="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">

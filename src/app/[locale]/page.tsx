@@ -26,7 +26,7 @@ export default async function Home({ params }: PageProps) {
     <>
       <Hero dict={dict} />
       <main className="relative">
-        <Philosophy dict={dict} />
+        {/* <Philosophy dict={dict} /> */}
         <BentoGrid dict={dict} />
         <SelectedWork dict={dict} />
         <Contact dict={dict} />
