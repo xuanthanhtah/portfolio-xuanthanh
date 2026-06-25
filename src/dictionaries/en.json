@@ -1,85 +1,85 @@
 {
   "metadata": {
-    "title": "Lê Xuân Thành | Enterprise Frontend Engineer",
-    "description": "Frontend Software Engineer with 3+ years of experience engineering secure, scalable web applications using React, TypeScript, and modern UI frameworks."
+    "title": "Le Xuan Thanh | Senior Frontend Engineer",
+    "description": "Frontend Engineer with 3+ years of experience specializing in React, TypeScript, and performance optimization for data-heavy web applications and enterprise dashboards."
   },
   "navigation": {
-    "work": "Work",
+    "work": "Projects",
     "about": "About"
   },
   "profile": {
-    "name": "Lê Xuân Thành - Frontend Engineer",
-    "status": "Ready for a new journey!",
+    "name": "Le Xuan Thanh",
+    "status": "Open for new opportunities",
     "headline": {
-      "line1": "Building High-Performance Systems"
+      "line1": "Building high-performance web apps with seamless UX."
     },
-    "subtext": "Frontend Software Engineer with 3+ years of experience engineering secure, scalable web applications using React, TypeScript, and modern UI frameworks.",
-    "ctaText": "View my projects"
+    "subtext": "I am a Frontend Engineer with over 3 years of hands-on experience in React and TypeScript. I specialize in turning complex business logic and massive datasets into intuitive, clean, and highly optimized dashboards.",
+    "ctaText": "View Projects"
   },
   "philosophy": {
-    "title": "Philosophy",
+    "title": "My Approach",
     "clauses": [
-      "I believe in creating modular front-end architecture where strict logic meets human intuition.",
-      "By bridging the absolute precision of TypeScript with scalable, standard design systems,",
-      "we transform high-volume data tables and intricate workflows into seamless digital journeys."
+      "I prioritize clean, maintainable code and scalable folder architectures right from the first commit.",
+      "By leveraging TypeScript to eliminate runtime bugs and integrating closely with Design Systems, I optimize delivery speed without compromising quality.",
+      "A great UI is more than just looks—it must remain responsive under heavy data loads and deliver a flawless user experience."
     ]
   },
   "capabilities": {
-    "title": "Capabilities",
+    "title": "Core Expertise",
     "cards": {
       "core": {
-        "tag": "Core Stack",
-        "title": "Enterprise React Architecture",
-        "description": "TypeScript • React • Zustand • React Query • Redux Toolkit.\n\nArchitecting high-performance single-page apps capable of handling complex data flows."
+        "tag": "Core Tech Stack",
+        "title": "React & State Management",
+        "description": "Proficient in React and TypeScript. Experienced in managing complex global states using Zustand and Redux Toolkit, and optimizing server state with React Query (TanStack Query)."
       },
       "motion": {
-        "tag": "Performance",
-        "title": "Optimization",
-        "description": "• API Overhead: -40%\n• Dashboard Load: -1s\n• UX: Optimized for high concurrent user loads."
+        "tag": "Performance Optimization",
+        "title": "Speed & Efficiency",
+        "description": "• Reduced dashboard initial load time to under 1 second.\n• Cut redundant API requests by 40% using smart caching, throttling, and debouncing strategies.\n• Eliminated unnecessary re-renders in data-heavy tables and charts."
       },
       "system": {
-        "tag": "Scalability",
-        "title": "UI Component Engineering",
-        "description": "Ant Design • Tailwind CSS • Material UI.\n\nStandardizing robust, reusable UI libraries to slash dev time."
+        "tag": "UI/UX Development",
+        "title": "Component Engineering",
+        "description": "Deep experience working with Ant Design, Tailwind CSS, and Material UI. Skilled in building modular, reusable UI components that boost team development speed by 30%."
       },
       "tooling": {
-        "tag": "Operations",
-        "title": "Workflow & DevOps",
-        "description": "GitFlow • Code Review • Agile • IIS Server Deployment.\n\nEnsuring code quality from commit to on-premise production."
+        "tag": "Workflow & DevOps",
+        "title": "GitFlow & Engineering Culture",
+        "description": "Strict adherence to GitFlow and a strong advocate for thorough Code Reviews. Familiar with Agile/Scrum environments and experienced in configuring and deploying builds on IIS Servers."
       },
       "creative": {
-        "tag": "Fintech Security",
-        "title": "Mission-Critical Integrations",
-        "description": "Microsoft Azure AD (OAuth2) • JWT Refresh Token • Core Banking Sync.\n\nEngineering secure permission layers and approval workflows."
+        "tag": "Security & Integration",
+        "title": "Fintech & Enterprise Security",
+        "description": "Experienced in handling high-security banking features: Enterprise authentication via Azure AD (OAuth2), automated JWT silent refresh tokens, and seamless Core Banking data synchronization."
       }
     }
   },
   "projects": {
-    "title": "Selected Work",
+    "title": "Featured Projects",
     "list": [
       {
         "id": "kpi-powerhome",
         "title": "HDBank Performance Management System (KPI PowerHome)",
-        "category": "Enterprise Frontend / Management System",
+        "category": "Frontend Developer | Dashboard & Core Admin",
         "year": "2026"
       },
       {
         "id": "ehrp",
-        "title": "Employee Human Resources Platform (EHRP)",
-        "category": "Internal HR Platform / Core Operations",
+        "title": "Enterprise Human Resource Platform (EHRP)",
+        "category": "Frontend Developer | HR Tech",
         "year": "2025"
       },
       {
         "id": "money-transfer",
-        "title": "International Money Transfer Processing System",
-        "category": "Digital Banking / Core Integration",
+        "title": "International Money Transfer System",
+        "category": "Frontend Developer | Fintech & Core Banking Integration",
         "year": "2025"
       }
     ]
   },
   "footer": {
-    "title": "Get in Touch",
-    "cta": "Let's connect",
+    "title": "Contact",
+    "cta": "Let's connect!",
     "email": "thanh26092000@gmail.com",
     "socials": {
       "email": "Email",
@@ -87,6 +87,6 @@
       "linkedin": "LinkedIn",
       "resume": "Resume"
     },
-    "signature": "Designed & Engineered with rigor.\nAll rights reserved © 2026."
+    "signature": "Clean code & Minimalist UI.\n© 2026 Le Xuan Thanh."
   }
 }

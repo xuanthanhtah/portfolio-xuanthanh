@@ -9,6 +9,15 @@ interface PageProps {
   params: Promise<{ locale: string }>;
 }
 
+// 1. Thêm hàm này để Next.js biết trước các folder ngôn ngữ cần tạo ra khi build tĩnh
+export function generateStaticParams() {
+  // Thay đổi mảng này đúng với các locale mà dự án của bạn hỗ trợ (ví dụ: 'vi', 'en')
+  return [
+    { locale: 'vi' },
+    { locale: 'en' }
+  ];
+}
+
 export default async function Home({ params }: PageProps) {
   const { locale } = await params;
   const dict = await getDictionary(locale as Locale);

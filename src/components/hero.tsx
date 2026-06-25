@@ -5,6 +5,7 @@ import { Magnetic } from "./ui/magnetic";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageSwitcher } from "./language-switcher";
 import { Dictionary } from "@/lib/dictionary";
+import { HeroScene } from "./hero-scene";
 
 interface HeroProps {
   dict: Dictionary;
@@ -125,21 +126,28 @@ export function Hero({ dict }: HeroProps) {
           </motion.div>
         </motion.div>
 
-        {/* Right Side: Architectural Visual Block */}
+        {/* Right Side: Three.js Interactive Particle Constellation */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-          className="hidden lg:flex justify-center items-center h-[350px] relative"
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
+          className="hidden lg:block h-[420px] relative rounded-3xl overflow-hidden"
         >
-          {/* Minimal Abstract Geometric Sculpture */}
-          <div className="relative w-72 h-72 border border-dashed border-border-light dark:border-border-dark rounded-full flex items-center justify-center animate-[spin_40s_linear_infinite]">
-            <div className="w-52 h-52 border border-solid border-neutral-300 dark:border-neutral-800 rounded-none transform rotate-45 flex items-center justify-center">
-              <div className="w-36 h-36 border border-neutral-300 dark:border-neutral-800 rounded-full flex items-center justify-center">
-                <div className="w-16 h-16 bg-accent-light/10 dark:bg-accent-dark/10 border border-accent-light dark:border-accent-dark rounded-none transform -rotate-12" />
-              </div>
-            </div>
-          </div>
+          {/*
+           * The canvas fills this container absolutely.
+           * pointer-events: none is set on the canvas itself — the
+           * parent div can still receive events if needed in future.
+           */}
+          <HeroScene />
+
+          {/* Subtle vignette overlay to blend edges into the bg */}
+          <div
+            className="absolute inset-0 rounded-3xl pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, transparent 55%, var(--background) 100%)",
+            }}
+          />
         </motion.div>
       </div>
 
