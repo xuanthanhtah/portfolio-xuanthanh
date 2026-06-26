@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "title": "Le Xuan Thanh | Middle Frontend Engineer",
+    "title": "Le Xuan Thanh | Frontend Developer",
     "description": "Frontend Engineer with 3+ years of experience specializing in React, TypeScript, and performance optimization for data-heavy web applications and enterprise dashboards."
   },
   "navigation": {
-    "work": "Projects",
+    "contact": "Contact",
     "skills": "Skills"
   },
   "profile": {
@@ -14,7 +14,7 @@
       "line1": "Building high-performance web apps with seamless UX."
     },
     "subtext": "I am a Frontend Engineer with over 3 years of hands-on experience in React and TypeScript. I specialize in turning complex business logic and massive datasets into intuitive, clean, and highly optimized dashboards.",
-    "ctaText": "View Projects",
+    "ctaText": "Contact Us",
     "cvText": "My CV"
   },
   "philosophy": {
@@ -76,6 +76,160 @@
         "category": "Frontend Developer | Fintech & Core Banking Integration",
         "year": "2025"
       }
+    ]
+  },
+  "experience": {
+    "sectionTitle": "Work Experience",
+    "company": "HD Bank",
+    "role": "Frontend Developer",
+    "period": "March 2023 – Present",
+    "location": "Ho Chi Minh City, Vietnam",
+    "summary": "Developed and maintained enterprise-grade web applications for 15,000+ internal employees across Retail Banking and SME divisions.",
+    "stats": [
+      {
+        "label": "Employees Served",
+        "value": "15,000+",
+        "suffix": ""
+      },
+      {
+        "label": "Dev Time Saved",
+        "value": "30",
+        "suffix": "%"
+      },
+      {
+        "label": "API Calls Reduced",
+        "value": "40",
+        "suffix": "%"
+      },
+      {
+        "label": "Load Time Gain",
+        "value": "1",
+        "suffix": "s"
+      }
+    ],
+    "highlights": [
+      "Built enterprise applications serving 15,000+ employees",
+      "Standardized reusable component library cutting 30% dev time",
+      "Optimized dashboard load time by 1s via React Query caching",
+      "Implemented Azure AD OAuth2 + JWT silent refresh flow",
+      "Integrated Core Banking data sync and Excel import/export"
+    ],
+    "techStack": [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "React Query",
+      "Zustand",
+      "Ant Design",
+      "Redux Toolkit",
+      "Azure AD"
+    ],
+    "clickHint": "Click to expand dashboard"
+  },
+  "skills": {
+    "sectionTitle": "Skills & Expertise",
+    "groups": [
+      {
+        "category": "Core Languages",
+        "items": [
+          {
+            "name": "TypeScript",
+            "level": 90
+          },
+          {
+            "name": "JavaScript",
+            "level": 92
+          },
+          {
+            "name": "HTML / CSS",
+            "level": 95
+          }
+        ]
+      },
+      {
+        "category": "Frameworks & Libraries",
+        "items": [
+          {
+            "name": "React",
+            "level": 92
+          },
+          {
+            "name": "Next.js",
+            "level": 85
+          },
+          {
+            "name": "Astro",
+            "level": 72
+          },
+          {
+            "name": "jQuery",
+            "level": 78
+          }
+        ]
+      },
+      {
+        "category": "Styling Systems",
+        "items": [
+          {
+            "name": "Tailwind CSS",
+            "level": 93
+          },
+          {
+            "name": "Ant Design",
+            "level": 88
+          },
+          {
+            "name": "Material UI",
+            "level": 82
+          }
+        ]
+      },
+      {
+        "category": "State & Data",
+        "items": [
+          {
+            "name": "React Query",
+            "level": 90
+          },
+          {
+            "name": "Zustand",
+            "level": 88
+          },
+          {
+            "name": "Redux Toolkit",
+            "level": 80
+          }
+        ]
+      },
+      {
+        "category": "Tools & DevOps",
+        "items": [
+          {
+            "name": "GitFlow",
+            "level": 88
+          },
+          {
+            "name": "IIS Server",
+            "level": 70
+          },
+          {
+            "name": "Azure AD",
+            "level": 75
+          }
+        ]
+      }
+    ]
+  },
+  "education": {
+    "sectionTitle": "Education",
+    "degree": "Bachelor of Information Technology",
+    "university": "HUTECH University",
+    "location": "Ho Chi Minh City, Vietnam",
+    "period": "2019 – 2023",
+    "gpa": "8.35 / 10",
+    "highlights": [
+      "Major in Software Engineering",
+      "GPA: 8.35/10"
     ]
   },
   "footer": {

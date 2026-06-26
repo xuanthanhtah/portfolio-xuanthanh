@@ -4,7 +4,7 @@
     "description": "Kỹ sư Frontend với hơn 3 năm kinh nghiệm thực chiến. Chuyên sâu về React, TypeScript và tối ưu performance cho các hệ thống Web Application, Dashboard doanh nghiệp dung lượng dữ liệu lớn."
   },
   "navigation": {
-    "work": "Dự án",
+    "contact": "Liên hệ",
     "skills": "Kỹ năng"
   },
   "profile": {
@@ -14,7 +14,7 @@
       "line1": "Xây dựng các hệ thống hiệu năng cao"
     },
     "subtext": "Kỹ sư Phần mềm Frontend với hơn 3 năm kinh nghiệm phát triển các ứng dụng web an toàn, có khả năng mở rộng bằng React, TypeScript và các UI framework hiện đại.",
-    "ctaText": "Xem các dự án",
+    "ctaText": "Liên hệ",
     "cvText": "Hồ sơ (CV)"
   },
   "philosophy": {
@@ -76,6 +76,160 @@
         "category": "Frontend Developer | Fintech & Core Banking Integration",
         "year": "2025"
       }
+    ]
+  },
+  "experience": {
+    "sectionTitle": "Kinh nghiệm làm việc",
+    "company": "HD Bank",
+    "role": "Lập trình viên Frontend",
+    "period": "Tháng 3/2023 – Hiện tại",
+    "location": "TP. Hồ Chí Minh, Việt Nam",
+    "summary": "Phát triển và duy trì các ứng dụng web cấp doanh nghiệp phục vụ hơn 15.000 nhân viên nội bộ thuộc các mảng Ngân hàng Bán lẻ và Doanh nghiệp vừa & nhỏ.",
+    "stats": [
+      {
+        "label": "Nhân viên sử dụng",
+        "value": "15,000+",
+        "suffix": ""
+      },
+      {
+        "label": "Tiết kiệm thời gian dev",
+        "value": "30",
+        "suffix": "%"
+      },
+      {
+        "label": "Giảm API không cần thiết",
+        "value": "40",
+        "suffix": "%"
+      },
+      {
+        "label": "Cải thiện tốc độ tải",
+        "value": "1",
+        "suffix": "s"
+      }
+    ],
+    "highlights": [
+      "Xây dựng ứng dụng doanh nghiệp phục vụ hơn 15.000 nhân viên",
+      "Chuẩn hóa thư viện component dùng chung, giảm 30% thời gian dev",
+      "Tối ưu thời gian tải dashboard xuống 1 giây nhờ React Query caching",
+      "Tích hợp Azure AD OAuth2 + JWT silent refresh flow bảo mật",
+      "Đồng bộ dữ liệu Core Banking và chức năng import/export Excel"
+    ],
+    "techStack": [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "React Query",
+      "Zustand",
+      "Ant Design",
+      "Redux Toolkit",
+      "Azure AD"
+    ],
+    "clickHint": "Nhấp để xem chi tiết"
+  },
+  "skills": {
+    "sectionTitle": "Kỹ năng & Chuyên môn",
+    "groups": [
+      {
+        "category": "Ngôn ngữ lập trình",
+        "items": [
+          {
+            "name": "TypeScript",
+            "level": 90
+          },
+          {
+            "name": "JavaScript",
+            "level": 92
+          },
+          {
+            "name": "HTML / CSS",
+            "level": 95
+          }
+        ]
+      },
+      {
+        "category": "Frameworks & Thư viện",
+        "items": [
+          {
+            "name": "React",
+            "level": 92
+          },
+          {
+            "name": "Next.js",
+            "level": 85
+          },
+          {
+            "name": "Astro",
+            "level": 72
+          },
+          {
+            "name": "jQuery",
+            "level": 78
+          }
+        ]
+      },
+      {
+        "category": "Hệ thống Styling",
+        "items": [
+          {
+            "name": "Tailwind CSS",
+            "level": 93
+          },
+          {
+            "name": "Ant Design",
+            "level": 88
+          },
+          {
+            "name": "Material UI",
+            "level": 82
+          }
+        ]
+      },
+      {
+        "category": "State & Dữ liệu",
+        "items": [
+          {
+            "name": "React Query",
+            "level": 90
+          },
+          {
+            "name": "Zustand",
+            "level": 88
+          },
+          {
+            "name": "Redux Toolkit",
+            "level": 80
+          }
+        ]
+      },
+      {
+        "category": "Công cụ & DevOps",
+        "items": [
+          {
+            "name": "GitFlow",
+            "level": 88
+          },
+          {
+            "name": "IIS Server",
+            "level": 70
+          },
+          {
+            "name": "Azure AD",
+            "level": 75
+          }
+        ]
+      }
+    ]
+  },
+  "education": {
+    "sectionTitle": "Học vấn",
+    "degree": "Cử nhân Công nghệ Thông tin",
+    "university": "Trường Đại học HUTECH",
+    "location": "TP. Hồ Chí Minh, Việt Nam",
+    "period": "2019 – 2023",
+    "gpa": "8.35 / 10",
+    "highlights": [
+      "Chuyên ngành Kỹ thuật Phần mềm",
+      "GPA: 8.35/10"
     ]
   },
   "footer": {

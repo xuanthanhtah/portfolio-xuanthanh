@@ -66,10 +66,10 @@ export function Hero({ dict }: HeroProps) {
         </a>
         <div className="flex items-center gap-2.5 sm:gap-6">
           <a
-            href="#work"
+            href="#contact"
             className="text-xs sm:text-sm font-medium hover:text-accent-light dark:hover:text-accent-dark transition-colors"
           >
-            {navigation.work}
+            {navigation.contact}
           </a>
           <a
             href="#skills"
@@ -125,7 +125,7 @@ export function Hero({ dict }: HeroProps) {
           <motion.div variants={fadeInVariants} className="flex items-center gap-3 flex-wrap">
             <Magnetic range={50} actionStrength={0.25}>
               <a
-                href="#work"
+                href="#contact"
                 className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-black dark:bg-white !text-white dark:!text-black !opacity-100 font-semibold text-sm hover:scale-[1.02] active:scale-[0.98] transition-transform"
               >
                 {profile.ctaText}
@@ -139,7 +139,7 @@ export function Hero({ dict }: HeroProps) {
                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-neutral-300 dark:border-neutral-700 font-semibold text-sm hover:scale-[1.02] active:scale-[0.98] hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
                 {profile.cvText}
               </a>
