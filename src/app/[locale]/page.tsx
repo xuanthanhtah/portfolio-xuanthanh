@@ -5,6 +5,8 @@ import { ProjectSection } from "@/components/ProjectSection";
 import { SkillsCloud } from "@/components/SkillsCloud";
 import { EducationTimeline } from "@/components/EducationTimeline";
 import { Contact } from "@/components/contact";
+import { StickyNav } from "@/components/StickyNav";
+import { BackToTop } from "@/components/BackToTop";
 import { getDictionary, Locale } from "@/lib/dictionary";
 
 interface PageProps {
@@ -21,6 +23,10 @@ export default async function Home({ params }: PageProps) {
 
   return (
     <>
+      {/* ── Persistent floating UI (outside scroll containers) ── */}
+      <StickyNav dict={dict} />
+      <BackToTop />
+
       {/* ── Entry Phase: 3D Hero (full viewport) ── */}
       <Hero dict={dict} />
 
