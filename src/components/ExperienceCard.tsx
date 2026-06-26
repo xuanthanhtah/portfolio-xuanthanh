@@ -116,7 +116,7 @@ export function ExperienceCard({ dict }: ExperienceCardProps) {
     expanded: {
       height: "auto",
       opacity: 1,
-      transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
