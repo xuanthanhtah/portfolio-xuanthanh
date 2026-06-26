@@ -3,14 +3,17 @@
 /**
  * ExperienceCard — HD Bank work experience block
  *
- * At rest: clean CV-style entry with company, role, period.
- * On click: expands with AnimatePresence to reveal a rich
- * "Enterprise Dashboard" simulation with animated stats,
- * sparklines, and tech stack pills.
+ * Philosophy: Triết lý Vừa đủ nhưng Đầy đủ
+ * - INITIAL STATE: Ultra-clean — only Job Title, Company, Timeline, and
+ *   one core high-impact accomplishment line visible by default.
+ * - HOVER STATE (pointer devices): Elegant expand via AnimatePresence
+ *   revealing stats dashboard, highlights, tech stack, and simulator.
+ * - TOUCH FALLBACK: Click toggles expansion on devices without fine pointer.
+ * - Premium micro-interactions: card scale + localized glow on hover.
  */
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence, Variants, useReducedMotion } from "framer-motion";
 import { BankingWorkflowSimulator } from "@/components/BankingWorkflowSimulator";
 import { Dictionary } from "@/lib/dictionary";
 
@@ -42,8 +45,6 @@ function useAnimatedCount(target: number, duration: number = 1200, active: boole
   return count;
 }
 
-
-
 // ─── Stat Card ────────────────────────────────────────────────────────────────
 interface StatCardProps {
   label: string;
@@ -54,7 +55,6 @@ interface StatCardProps {
 }
 
 function StatCard({ label, rawValue, suffix, delay, active }: StatCardProps) {
-  // Parse numeric value; if it contains "+" or non-numeric, display as-is
   const numericTarget = parseInt(rawValue.replace(/[^0-9]/g, ""), 10);
   const isNumeric = !isNaN(numericTarget) && rawValue.replace(/[^0-9]/g, "") !== "";
   const hasPlus = rawValue.includes("+");
@@ -64,8 +64,8 @@ function StatCard({ label, rawValue, suffix, delay, active }: StatCardProps) {
   const displayValue = !active
     ? "0"
     : isNumeric
-    ? `${counted.toLocaleString()}${hasPlus ? "+" : ""}`
-    : rawValue;
+      ? `${counted.toLocaleString()}${hasPlus ? "+" : ""}`
+      : rawValue;
 
   return (
     <motion.div
@@ -88,14 +88,35 @@ function StatCard({ label, rawValue, suffix, delay, active }: StatCardProps) {
 // ─── Main Component ───────────────────────────────────────────────────────────
 export function ExperienceCard({ dict }: ExperienceCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const reduceMotion = useReducedMotion();
   const exp = dict.experience;
+
+  // Detect if device supports hover (pointer: fine)
+  // This ref is set once on mount and never changes
+  const supportsHoverRef = useRef(false);
+  useEffect(() => {
+    supportsHoverRef.current = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    if (supportsHoverRef.current) setIsExpanded(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (supportsHoverRef.current) setIsExpanded(false);
+  }, []);
+
+  const handleClick = useCallback(() => {
+    // Toggle on touch devices only (no fine pointer hover)
+    if (!supportsHoverRef.current) setIsExpanded((v) => !v);
+  }, []);
 
   const expandVariants: Variants = {
     collapsed: { height: 0, opacity: 0 },
     expanded: {
       height: "auto",
       opacity: 1,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
@@ -112,14 +133,26 @@ export function ExperienceCard({ dict }: ExperienceCardProps) {
       <motion.div
         layout
         className="glow-on-hover rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 overflow-hidden cursor-pointer select-none"
-        onClick={() => setIsExpanded((v) => !v)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
+        whileHover={
+          reduceMotion
+            ? {}
+            : {
+              scale: 1.004,
+              boxShadow:
+                "0 0 0 1px rgba(143, 168, 155, 0.35), 0 12px 40px rgba(143, 168, 155, 0.14), 0 4px 16px rgba(0, 0, 0, 0.06)",
+            }
+        }
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Header Row — always visible */}
+        {/* ── INITIAL STATE: Ultra-clean header — always visible ── */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 p-6 sm:p-8">
           <div className="flex flex-col gap-1.5">
             {/* Company + Role */}
             <div className="flex items-center gap-3">
-              {/* HD Bank logo placeholder */}
+              {/* HD Bank logo */}
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shrink-0 shadow-md">
                 <span className="text-white text-xs font-black tracking-tight">HD</span>
               </div>
@@ -133,7 +166,8 @@ export function ExperienceCard({ dict }: ExperienceCardProps) {
               </div>
             </div>
 
-            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+            {/* Single high-impact line — the one essential accomplishment */}
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1 max-w-[52ch] leading-relaxed">
               {exp.summary}
             </p>
           </div>
@@ -145,25 +179,26 @@ export function ExperienceCard({ dict }: ExperienceCardProps) {
             <span className="text-[10px] text-neutral-400 dark:text-neutral-500">
               {exp.location}
             </span>
-            {/* Expand toggle */}
-            <motion.div
-              className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-accent-light dark:text-accent-dark"
-              animate={{ opacity: [0.6, 1, 0.6] }}
-              transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-            >
-              <motion.span
-                animate={{ rotate: isExpanded ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="inline-block"
-              >
-                ↓
-              </motion.span>
-              <span className="hidden sm:inline">{exp.clickHint}</span>
-            </motion.div>
+
+            {/* Hover hint — fades out when expanded */}
+            <AnimatePresence>
+              {!isExpanded && (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="mt-2 text-[10px] font-medium text-neutral-300 dark:text-neutral-600 hidden sm:block"
+                  aria-hidden="true"
+                >
+                  {supportsHoverRef.current ? "hover to expand" : "tap to expand"} →
+                </motion.span>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
-        {/* Expandable Dashboard */}
+        {/* ── HOVER/EXPANDED STATE: Rich dashboard reveal ── */}
         <AnimatePresence initial={false}>
           {isExpanded && (
             <motion.div

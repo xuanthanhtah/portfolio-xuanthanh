@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, useScroll, useTransform } from "framer-motion";
 import { Magnetic } from "./ui/magnetic";
 import { ThemeToggle } from "./theme-toggle";
 import { useTheme } from "next-themes";
@@ -21,6 +21,10 @@ export function Hero({ dict }: HeroProps) {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Fade out the hero's inline nav as StickyNav fades in (scroll 0 → 80px)
+  const { scrollY } = useScroll();
+  const heroNavOpacity = useTransform(scrollY, [0, 80], [1, 0]);
 
   // Animation variants for stagger reveal
   const containerVariants: Variants = {
@@ -58,8 +62,8 @@ export function Hero({ dict }: HeroProps) {
 
   return (
     <section className="relative w-full min-h-[100dvh] flex flex-col justify-between pt-24 pb-12 px-6 md:px-16 bg-grid-overlay overflow-hidden select-none">
-      {/* Top Navigation Strip */}
-      <div className="w-full flex justify-between items-center z-20 gap-3">
+      {/* Top Navigation Strip — fades out as StickyNav takes over */}
+      <motion.div style={{ opacity: heroNavOpacity }} className="w-full flex justify-between items-center z-20 gap-3">
         <a href="#home" className="text-sm sm:text-base md:text-lg font-bold tracking-tight select-none shrink-0">
           {profile.name.split(" - ")[0]}
           <span className="text-accent-light dark:text-accent-dark">.</span>
@@ -80,7 +84,7 @@ export function Hero({ dict }: HeroProps) {
           <LanguageSwitcher />
           <ThemeToggle />
         </div>
-      </div>
+      </motion.div>
 
       {/* Main Content Area (Asymmetric Grid) */}
       <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center my-auto z-10">

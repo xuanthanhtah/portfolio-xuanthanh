@@ -12,12 +12,18 @@
  *   hoisted to parent (tooltip state in the DOM layer, not Three.js)
  * - Click: window.open to official docs
  * - Reduced-motion: static anchor grid, no canvas
+ *
+ * Light Mode Contrast:
+ * - isDark=false → defaultColor = slate-700 (#334155), opacity 0.88
+ * - isDark=true  → defaultColor = white (#ffffff), opacity 0.6
+ * - Hover always cross-fades to the vibrant official brand color in both modes
  */
 
 import { useRef, useState, useCallback, Suspense, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useTexture, Html } from "@react-three/drei";
 import { useReducedMotion, motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "next-themes";
 import * as THREE from "three";
 import { Dictionary } from "@/lib/dictionary";
 
@@ -57,9 +63,14 @@ const TECH_NODES: TechNode[] = [
 ];
 
 const RING_RADII = [2.5, 4.5, 6.8] as const;
-const RING_SPEEDS = [0.006, 0.0035, 0.002] as const;
+const RING_SPEEDS = [0.003, 0.0017, 0.001] as const;
 const RING_TILT = [0, 0.18, -0.12] as const;
 const SPRITE_BASE_SCALE = [0.8, 1.0, 1.2] as const;
+
+// Light mode: slate-700 for sharp contrast against white/light backgrounds
+const LIGHT_MODE_COLOR = new THREE.Color(0x334155);
+// Dark mode: white for visibility against dark backgrounds
+const DARK_MODE_COLOR = new THREE.Color(0xffffff);
 
 // ─── SVG Fetch & Patch (Solves Three.js 0x0 Texture Bug) ─────────────────────
 function iconUrl(slug: string) {
@@ -106,10 +117,11 @@ interface TooltipState {
 // ─── Single tech sprite ─────────────────────────────────────────────────────────
 interface TechSpriteProps {
   node: TechNode;
+  isDark: boolean;
   onHover: (t: TooltipState | null) => void;
 }
 
-function TechSprite({ node, onHover }: TechSpriteProps) {
+function TechSprite({ node, isDark, onHover }: TechSpriteProps) {
   const { camera, size } = useThree();
   const spriteRef = useRef<THREE.Sprite>(null);
   const hoveredRef = useRef(false);
@@ -119,7 +131,14 @@ function TechSprite({ node, onHover }: TechSpriteProps) {
   const texture = useSvgTexture(node.slug);
 
   const targetScale = SPRITE_BASE_SCALE[node.ring];
-  const defaultColor = useMemo(() => new THREE.Color(0xffffff), []);
+
+  // Theme-aware default color and opacity
+  const defaultColor = useMemo(
+    () => (isDark ? DARK_MODE_COLOR.clone() : LIGHT_MODE_COLOR.clone()),
+    [isDark]
+  );
+  const defaultOpacity = isDark ? 0.6 : 0.88;
+
   const hoverColor = useMemo(() => new THREE.Color(node.brandColor), [node.brandColor]);
 
   useFrame(() => {
@@ -127,7 +146,7 @@ function TechSprite({ node, onHover }: TechSpriteProps) {
 
     const ring = node.ring;
 
-    // 2. Hover-to-Pause Physics Logic
+    // Hover-to-Pause Physics Logic
     if (!hoveredRef.current) {
       angleRef.current += RING_SPEEDS[ring];
     }
@@ -136,7 +155,7 @@ function TechSprite({ node, onHover }: TechSpriteProps) {
     const radius = RING_RADII[ring];
     const tilt = RING_TILT[ring];
 
-    // 3. Expanded Motion Bounds
+    // Expanded Motion Bounds
     const x = Math.cos(angle) * radius * 1.2;
     const y = Math.sin(angle) * Math.cos(tilt) * radius * 0.4;
     const z = Math.sin(angle) * Math.sin(tilt) * radius * 0.3;
@@ -148,9 +167,9 @@ function TechSprite({ node, onHover }: TechSpriteProps) {
     scaleRef.current += (hoverScale - scaleRef.current) * 0.12;
     spriteRef.current.scale.setScalar(scaleRef.current);
 
-    // 1. Brand Color Transition on Hover
+    // Brand Color Transition on Hover — seamless cross-fade
     const mat = spriteRef.current.material as THREE.SpriteMaterial;
-    const targetOpacity = hoveredRef.current ? 1.0 : 0.6;
+    const targetOpacity = hoveredRef.current ? 1.0 : defaultOpacity;
     mat.opacity += (targetOpacity - mat.opacity) * 0.12;
     mat.color.lerp(hoveredRef.current ? hoverColor : defaultColor, 0.12);
   });
@@ -211,8 +230,8 @@ function TechSprite({ node, onHover }: TechSpriteProps) {
       <spriteMaterial
         map={texture}
         transparent
-        opacity={0.6}
-        color={0xffffff}
+        opacity={defaultOpacity}
+        color={isDark ? 0xffffff : 0x334155}
         depthWrite={false}
         sizeAttenuation
       />
@@ -221,11 +240,17 @@ function TechSprite({ node, onHover }: TechSpriteProps) {
 }
 
 // ─── Scene root ────────────────────────────────────────────────────────────────
-function CloudScene({ onHover }: { onHover: (t: TooltipState | null) => void }) {
+function CloudScene({
+  isDark,
+  onHover,
+}: {
+  isDark: boolean;
+  onHover: (t: TooltipState | null) => void;
+}) {
   return (
     <>
       {TECH_NODES.map((node) => (
-        <TechSprite key={node.name} node={node} onHover={onHover} />
+        <TechSprite key={node.name} node={node} isDark={isDark} onHover={onHover} />
       ))}
     </>
   );
@@ -301,7 +326,11 @@ interface SkillsCloudProps {
 export function SkillsCloud({ dict }: SkillsCloudProps) {
   const reduceMotion = useReducedMotion();
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
+  const { resolvedTheme } = useTheme();
   const skills = dict.skills;
+
+  // Derive isDark from resolvedTheme — safe default to dark until hydrated
+  const isDark = resolvedTheme !== "light";
 
   return (
     <section
@@ -341,7 +370,7 @@ export function SkillsCloud({ dict }: SkillsCloudProps) {
           >
             <ambientLight intensity={0.8} />
             <Suspense fallback={<Html center><div className="text-sm font-mono text-neutral-500 bg-white/80 dark:bg-black/80 px-4 py-2 rounded-lg backdrop-blur-md">Loading 3D Stack...</div></Html>}>
-              <CloudScene onHover={setTooltip} />
+              <CloudScene isDark={isDark} onHover={setTooltip} />
             </Suspense>
           </Canvas>
 
