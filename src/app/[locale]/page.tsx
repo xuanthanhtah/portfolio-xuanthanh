@@ -1,7 +1,9 @@
 import { Hero } from "@/components/hero";
-import { Philosophy } from "@/components/philosophy";
-import { BentoGrid } from "@/components/bento-grid";
-import { SelectedWork } from "@/components/selected-work";
+import { CVContainer } from "@/components/CVContainer";
+import { ExperienceCard } from "@/components/ExperienceCard";
+import { ProjectSection } from "@/components/ProjectSection";
+import { SkillsCloud } from "@/components/SkillsCloud";
+import { EducationTimeline } from "@/components/EducationTimeline";
 import { Contact } from "@/components/contact";
 import { getDictionary, Locale } from "@/lib/dictionary";
 
@@ -9,13 +11,8 @@ interface PageProps {
   params: Promise<{ locale: string }>;
 }
 
-// 1. Thêm hàm này để Next.js biết trước các folder ngôn ngữ cần tạo ra khi build tĩnh
 export function generateStaticParams() {
-  // Thay đổi mảng này đúng với các locale mà dự án của bạn hỗ trợ (ví dụ: 'vi', 'en')
-  return [
-    { locale: 'vi' },
-    { locale: 'en' }
-  ];
+  return [{ locale: "vi" }, { locale: "en" }];
 }
 
 export default async function Home({ params }: PageProps) {
@@ -24,11 +21,26 @@ export default async function Home({ params }: PageProps) {
 
   return (
     <>
+      {/* ── Entry Phase: 3D Hero (full viewport) ── */}
       <Hero dict={dict} />
-      <main className="relative">
-        {/* <Philosophy dict={dict} /> */}
-        <BentoGrid dict={dict} />
-        <SelectedWork dict={dict} />
+
+      {/* ── The Living CV: glassmorphic CV sheet ── */}
+      <main className="relative bg-neutral-50/50 dark:bg-neutral-950/50 bg-grid-overlay min-h-screen">
+        <CVContainer>
+          {/* 1. Work Experience with expandable mini-dashboard */}
+          <ExperienceCard dict={dict} />
+
+          {/* 2. Projects with unique interactive visualizations */}
+          {/* <ProjectSection dict={dict} /> */}
+
+          {/* 3. Skills with hover-reveal proficiency cards */}
+          <SkillsCloud dict={dict} />
+
+          {/* 4. Education with scroll-triggered timeline */}
+          <EducationTimeline dict={dict} />
+        </CVContainer>
+
+        {/* 5. Contact footer (outside the CV sheet, full width) */}
         <Contact dict={dict} />
       </main>
     </>
