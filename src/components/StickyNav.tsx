@@ -13,6 +13,8 @@
 import { useScroll, useTransform, motion, useReducedMotion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { SnowToggle } from "@/components/xmas/SnowToggle";
+import { PaletteTrigger } from "@/components/PaletteTrigger";
 import { Dictionary } from "@/lib/dictionary";
 
 interface StickyNavProps {
@@ -78,6 +80,8 @@ export function StickyNav({ dict }: StickyNavProps) {
             {navigation.skills}
           </a>
           <div className="w-px h-4 bg-neutral-200 dark:bg-neutral-700 mx-1" aria-hidden="true" />
+          <PaletteTrigger label={dict.palette.trigger} />
+          <SnowToggle labelOn={dict.xmas.snowOn} labelOff={dict.xmas.snowOff} />
           <LanguageSwitcher />
           <ThemeToggle />
         </div>

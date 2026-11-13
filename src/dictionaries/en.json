@@ -14,7 +14,7 @@
       "line1": "Building high-performance web apps with seamless UX."
     },
     "subtext": "I am a Frontend Engineer with over 3 years of hands-on experience in React and TypeScript. I specialize in turning complex business logic and massive datasets into intuitive, clean, and highly optimized dashboards.",
-    "ctaText": "Contact Us",
+    "ctaText": "Contact me",
     "cvText": "My CV"
   },
   "philosophy": {
@@ -36,12 +36,12 @@
       "motion": {
         "tag": "Performance Optimization",
         "title": "Speed & Efficiency",
-        "description": "• Reduced dashboard initial load time to under 1 second.\n• Cut redundant API requests by 40% using smart caching, throttling, and debouncing strategies.\n• Eliminated unnecessary re-renders in data-heavy tables and charts."
+        "description": "• Optimized data fetching and caching with React Query, cutting redundant API calls across complex HR records.\n• Built large data tables that filter big employee datasets without hurting browser performance.\n• Led UI performance initiatives to reduce friction in daily banking workflows."
       },
       "system": {
         "tag": "UI/UX Development",
         "title": "Component Engineering",
-        "description": "Deep experience working with Ant Design, Tailwind CSS, and Material UI. Skilled in building modular, reusable UI components that boost team development speed by 30%."
+        "description": "Deep experience working with Ant Design, Tailwind CSS, and Material UI. Skilled in building modular, reusable UI components that speed up delivery of new features and keep the UI consistent."
       },
       "tooling": {
         "tag": "Workflow & DevOps",
@@ -92,26 +92,21 @@
         "suffix": ""
       },
       {
-        "label": "Dev Time Saved",
-        "value": "30",
-        "suffix": "%"
+        "label": "Years at HDBank",
+        "value": "3",
+        "suffix": "+"
       },
       {
-        "label": "API Calls Reduced",
-        "value": "40",
-        "suffix": "%"
-      },
-      {
-        "label": "Load Time Gain",
-        "value": "1",
-        "suffix": "s"
+        "label": "Banking Platforms",
+        "value": "9",
+        "suffix": ""
       }
     ],
     "highlights": [
       "Built enterprise applications serving 15,000+ employees",
-      "Standardized reusable component library cutting 30% dev time",
-      "Optimized dashboard load time by 1s via React Query caching",
-      "Implemented Azure AD OAuth2 + JWT silent refresh flow",
+      "Standardized a reusable Ant Design component library across project modules",
+      "Optimized data fetching and caching with React Query for large data grids",
+      "Implemented Azure AD OAuth2 SSO + JWT refresh-token interceptors",
       "Integrated Core Banking data sync and Excel import/export"
     ],
     "techStack": [
@@ -124,7 +119,33 @@
       "Redux Toolkit",
       "Azure AD"
     ],
-    "clickHint": "Click to expand dashboard"
+    "currentBadge": "Current",
+    "contributionsTitle": "Key contributions",
+    "projectsTitle": "Key projects",
+    "techTitle": "Tech stack",
+    "flowTitle": "How the pieces fit together",
+    "flow": [
+      {
+        "label": "Azure AD SSO",
+        "detail": "OAuth2 sign-in"
+      },
+      {
+        "label": "JWT interceptor",
+        "detail": "Silent token refresh"
+      },
+      {
+        "label": "Core Banking",
+        "detail": "Data synchronization"
+      },
+      {
+        "label": "React Query",
+        "detail": "Fetching & caching"
+      },
+      {
+        "label": "Ant Design UI",
+        "detail": "Reusable components"
+      }
+    ]
   },
   "skills": {
     "sectionTitle": "Skills & Expertise",
@@ -133,16 +154,13 @@
         "category": "Core Languages",
         "items": [
           {
-            "name": "TypeScript",
-            "level": 90
+            "name": "TypeScript"
           },
           {
-            "name": "JavaScript",
-            "level": 92
+            "name": "JavaScript"
           },
           {
-            "name": "HTML / CSS",
-            "level": 95
+            "name": "HTML / CSS"
           }
         ]
       },
@@ -150,20 +168,16 @@
         "category": "Frameworks & Libraries",
         "items": [
           {
-            "name": "React",
-            "level": 92
+            "name": "React"
           },
           {
-            "name": "Next.js",
-            "level": 85
+            "name": "Next.js"
           },
           {
-            "name": "Astro",
-            "level": 72
+            "name": "Micro Front-end"
           },
           {
-            "name": "jQuery",
-            "level": 78
+            "name": "jQuery"
           }
         ]
       },
@@ -171,16 +185,13 @@
         "category": "Styling Systems",
         "items": [
           {
-            "name": "Tailwind CSS",
-            "level": 93
+            "name": "Tailwind CSS"
           },
           {
-            "name": "Ant Design",
-            "level": 88
+            "name": "Ant Design"
           },
           {
-            "name": "Material UI",
-            "level": 82
+            "name": "Material UI"
           }
         ]
       },
@@ -188,16 +199,13 @@
         "category": "State & Data",
         "items": [
           {
-            "name": "React Query",
-            "level": 90
+            "name": "React Query"
           },
           {
-            "name": "Zustand",
-            "level": 88
+            "name": "Zustand"
           },
           {
-            "name": "Redux Toolkit",
-            "level": 80
+            "name": "Redux Toolkit"
           }
         ]
       },
@@ -205,20 +213,23 @@
         "category": "Tools & DevOps",
         "items": [
           {
-            "name": "GitFlow",
-            "level": 88
+            "name": "GitFlow"
           },
           {
-            "name": "IIS Server",
-            "level": 70
+            "name": "IIS Server"
           },
           {
-            "name": "Azure AD",
-            "level": 75
+            "name": "Azure AD"
           }
         ]
       }
-    ]
+    ],
+    "subtitle": "The tools I use day to day, grouped by what they do.",
+    "viewGrid": "Categories",
+    "viewOrbit": "3D Orbit",
+    "hdbankLegend": "Used in production at HDBank",
+    "orbitHint": "Hover to preview · Click to open official docs",
+    "toolsCount": "tools"
   },
   "education": {
     "sectionTitle": "Education",
@@ -228,7 +239,7 @@
     "period": "2019 – 2023",
     "gpa": "8.35 / 10",
     "highlights": [
-      "Major in Software Engineering",
+      "Major: Information Technology",
       "GPA: 8.35/10"
     ]
   },
@@ -243,5 +254,44 @@
       "resume": "Resume"
     },
     "signature": "Clean code & Minimalist UI.\n© 2026 Le Xuan Thanh."
+  },
+  "xmas": {
+    "treeHint": "Drag to rotate · Click the tree to switch lights · Hover an ornament",
+    "modeButton": "Switch light mode",
+    "snowOn": "Turn snow on",
+    "snowOff": "Turn snow off"
+  },
+  "palette": {
+    "placeholder": "Type a command or search…",
+    "trigger": "Search or jump to…",
+    "empty": "No results. Try “skills” or “theme”.",
+    "groups": {
+      "navigate": "Navigate",
+      "actions": "Actions",
+      "links": "Links"
+    },
+    "items": {
+      "home": "Go to top",
+      "experience": "Work experience",
+      "skills": "Skills & expertise",
+      "education": "Education",
+      "contact": "Contact",
+      "themeDark": "Switch to dark theme",
+      "themeLight": "Switch to light theme",
+      "language": "Đổi sang Tiếng Việt",
+      "snowOn": "Turn snow on",
+      "snowOff": "Turn snow off",
+      "copyEmail": "Copy email address",
+      "copied": "Copied!",
+      "cv": "Open my CV",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Send an email"
+    },
+    "footer": {
+      "navigate": "navigate",
+      "select": "select",
+      "close": "close"
+    }
   }
 }

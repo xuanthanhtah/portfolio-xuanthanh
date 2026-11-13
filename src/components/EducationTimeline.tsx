@@ -83,7 +83,7 @@ export function EducationTimeline({ dict }: EducationTimelineProps) {
   };
 
   return (
-    <section ref={sectionRef} className="py-12">
+    <section ref={sectionRef} id="education" className="py-12 scroll-mt-20">
       {/* Section label */}
       <div className="mb-8">
         <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-500">

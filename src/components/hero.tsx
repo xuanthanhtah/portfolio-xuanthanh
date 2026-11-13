@@ -6,17 +6,29 @@ import { ThemeToggle } from "./theme-toggle";
 import { useTheme } from "next-themes";
 import { LanguageSwitcher } from "./language-switcher";
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { Dictionary } from "@/lib/dictionary";
 import { HeroScene } from "./hero-scene";
+import { SnowToggle } from "./xmas/SnowToggle";
+import { PaletteTrigger } from "./PaletteTrigger";
+import { useTemplate } from "@/lib/template-store";
+import { LIGHT_MODES, type LightMode } from "./xmas/light-modes";
+
+// Holiday tree is heavy (R3F + postprocessing) — only load it for ?template=xmas, client-side.
+const ChristmasTreeScene = dynamic(() => import("./xmas/ChristmasTreeScene"), { ssr: false });
 
 interface HeroProps {
   dict: Dictionary;
 }
 
 export function Hero({ dict }: HeroProps) {
-  const { profile, navigation } = dict;
+  const { profile, navigation, xmas } = dict;
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const season = useTemplate() === "xmas";
+  const [lightMode, setLightMode] = useState<LightMode>("twinkle");
+  const cycleLightMode = () =>
+    setLightMode((m) => LIGHT_MODES[(LIGHT_MODES.indexOf(m) + 1) % LIGHT_MODES.length]);
 
   useEffect(() => {
     setMounted(true);
@@ -61,7 +73,7 @@ export function Hero({ dict }: HeroProps) {
   };
 
   return (
-    <section className="relative w-full min-h-[100dvh] flex flex-col justify-between pt-24 pb-12 px-6 md:px-16 bg-grid-overlay overflow-hidden select-none">
+    <section id="home" className="relative w-full min-h-[100dvh] flex flex-col justify-between pt-24 pb-12 px-6 md:px-16 bg-grid-overlay overflow-hidden select-none">
       {/* Top Navigation Strip — fades out as StickyNav takes over */}
       <motion.div style={{ opacity: heroNavOpacity }} className="w-full flex justify-between items-center z-20 gap-3">
         <a href="#home" className="text-sm sm:text-base md:text-lg font-bold tracking-tight select-none shrink-0">
@@ -81,6 +93,8 @@ export function Hero({ dict }: HeroProps) {
           >
             {navigation.skills}
           </a>
+          <PaletteTrigger label={dict.palette.trigger} />
+          <SnowToggle labelOn={xmas.snowOn} labelOff={xmas.snowOff} />
           <LanguageSwitcher />
           <ThemeToggle />
         </div>
@@ -151,7 +165,39 @@ export function Hero({ dict }: HeroProps) {
           </motion.div>
         </motion.div>
 
-        {/* Right Side: Three.js Interactive Particle Constellation */}
+        {/* Right Side: holiday tree for ?template=xmas, particle constellation otherwise */}
+        {mounted && season ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            className="relative h-[360px] sm:h-[420px] lg:h-[520px] -mx-6 sm:mx-0 select-none"
+          >
+            <ChristmasTreeScene
+              isDark={resolvedTheme !== "light"}
+              mode={lightMode}
+              onCycleMode={cycleLightMode}
+            />
+            {/* Dev-flavoured caption: the live state of the scene, as code */}
+            <div className="absolute left-6 sm:left-2 bottom-1 flex flex-col items-start gap-1 pointer-events-none">
+              <div className="flex flex-wrap items-center gap-1.5">
+              <button
+                type="button"
+                onClick={cycleLightMode}
+                aria-label={`${xmas.modeButton}: ${lightMode}`}
+                className="pointer-events-auto font-mono text-[11px] sm:text-xs px-2.5 py-1 rounded-md border border-border-light dark:border-border-dark bg-white/60 dark:bg-black/50 backdrop-blur-md text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer"
+              >
+                <span className="text-sky-600 dark:text-sky-300">lights</span>.mode ={" "}
+                <span className="text-amber-600 dark:text-amber-300">&quot;{lightMode}&quot;</span>
+              </button>
+              <SnowToggle variant="code" labelOn={xmas.snowOn} labelOff={xmas.snowOff} />
+              </div>
+              <span className="hidden sm:block text-[10px] text-neutral-400 dark:text-neutral-500">
+                {xmas.treeHint}
+              </span>
+            </div>
+          </motion.div>
+        ) : (
         <motion.div
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -174,6 +220,7 @@ export function Hero({ dict }: HeroProps) {
             }}
           />
         </motion.div>
+        )}
       </div>
 
       {/* Scroll Indicator */}

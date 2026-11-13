@@ -1,293 +1,242 @@
 "use client";
 
 /**
- * ExperienceCard — HD Bank work experience block
+ * ExperienceCard — HD Bank work experience
  *
- * Philosophy: Triết lý Vừa đủ nhưng Đầy đủ
- * - INITIAL STATE: Ultra-clean — only Job Title, Company, Timeline, and
- *   one core high-impact accomplishment line visible by default.
- * - HOVER STATE (pointer devices): Elegant expand via AnimatePresence
- *   revealing stats dashboard, highlights, tech stack, and simulator.
- * - TOUCH FALLBACK: Click toggles expansion on devices without fine pointer.
- * - Premium micro-interactions: card scale + localized glow on hover.
+ * Everything a recruiter needs is visible without clicking:
+ * header (company / role / period / location) → summary → CV-backed stats →
+ * contributions + key projects → tech stack → auth & data flow strip.
+ * Entrance animation is a light staggered fade, disabled for reduced motion.
  */
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence, Variants, useReducedMotion } from "framer-motion";
-import { BankingWorkflowSimulator } from "@/components/BankingWorkflowSimulator";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { CalendarDays, MapPin, ArrowRight, ChevronRight } from "lucide-react";
+import { TechIcon } from "@/components/ui/tech-icon";
 import { Dictionary } from "@/lib/dictionary";
 
 interface ExperienceCardProps {
   dict: Dictionary;
 }
 
-// ─── Animated counter hook ────────────────────────────────────────────────────
-function useAnimatedCount(target: number, duration: number = 1200, active: boolean = false) {
-  const [count, setCount] = useState(0);
+const EASE = [0.16, 1, 0.3, 1] as const;
 
-  useEffect(() => {
-    if (!active) { setCount(0); return; }
-    const start = performance.now();
-    let raf: number;
-
-    function step(now: number) {
-      const progress = Math.min((now - start) / duration, 1);
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * target));
-      if (progress < 1) raf = requestAnimationFrame(step);
-    }
-
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [target, duration, active]);
-
-  return count;
-}
-
-// ─── Stat Card ────────────────────────────────────────────────────────────────
-interface StatCardProps {
-  label: string;
-  rawValue: string;
-  suffix: string;
-  delay: number;
-  active: boolean;
-}
-
-function StatCard({ label, rawValue, suffix, delay, active }: StatCardProps) {
-  const numericTarget = parseInt(rawValue.replace(/[^0-9]/g, ""), 10);
-  const isNumeric = !isNaN(numericTarget) && rawValue.replace(/[^0-9]/g, "") !== "";
-  const hasPlus = rawValue.includes("+");
-
-  const counted = useAnimatedCount(isNumeric ? numericTarget : 0, 1000, active);
-
-  const displayValue = !active
-    ? "0"
-    : isNumeric
-      ? `${counted.toLocaleString()}${hasPlus ? "+" : ""}`
-      : rawValue;
-
+function SubHeading({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col gap-1 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-100 dark:border-neutral-700/50"
-    >
-      <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-        {label}
-      </span>
-      <span className="text-2xl font-bold text-neutral-900 dark:text-white tabular-nums">
-        {displayValue}
-        <span className="text-accent-light dark:text-accent-dark">{active ? suffix : ""}</span>
-      </span>
-    </motion.div>
+    <h4 className="text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400 mb-4">
+      {children}
+    </h4>
   );
 }
 
-// ─── Main Component ───────────────────────────────────────────────────────────
 export function ExperienceCard({ dict }: ExperienceCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const reduceMotion = useReducedMotion();
   const exp = dict.experience;
+  const projects = dict.projects.list;
+  const reduce = useReducedMotion();
 
-  // Detect if device supports hover (pointer: fine)
-  // This ref is set once on mount and never changes
-  const supportsHoverRef = useRef(false);
-  useEffect(() => {
-    supportsHoverRef.current = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  }, []);
-
-  const handleMouseEnter = useCallback(() => {
-    if (supportsHoverRef.current) setIsExpanded(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    if (supportsHoverRef.current) setIsExpanded(false);
-  }, []);
-
-  const handleClick = useCallback(() => {
-    // Toggle on touch devices only (no fine pointer hover)
-    if (!supportsHoverRef.current) setIsExpanded((v) => !v);
-  }, []);
-
-  const expandVariants: Variants = {
-    collapsed: { height: 0, opacity: 0 },
-    expanded: {
-      height: "auto",
-      opacity: 1,
-      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
-    },
+  const container: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: reduce ? 0 : 0.08 } },
   };
+  const item: Variants = reduce
+    ? { hidden: { opacity: 1 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, y: 16 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+      };
 
   return (
-    <section className="py-12 border-b border-neutral-200/60 dark:border-neutral-800/60">
-      {/* Section Label */}
-      <div className="mb-8">
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-500">
+    <section
+      id="experience"
+      aria-labelledby="experience-title"
+      className="py-16 md:py-20 border-b border-neutral-200/60 dark:border-neutral-800/60 scroll-mt-20"
+    >
+      {/* ── Section label ── */}
+      <div className="flex items-center gap-3 mb-10">
+        <span className="h-px w-6 bg-accent-light dark:bg-accent-dark" aria-hidden="true" />
+        <h2
+          id="experience-title"
+          className="text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400"
+        >
           {exp.sectionTitle}
-        </span>
+        </h2>
       </div>
 
-      {/* Experience Entry */}
-      <motion.div
-        layout
-        className="glow-on-hover rounded-2xl border border-neutral-200/80 dark:border-neutral-800/80 overflow-hidden cursor-pointer select-none"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
-        whileHover={
-          reduceMotion
-            ? {}
-            : {
-              scale: 1.004,
-              boxShadow:
-                "0 0 0 1px rgba(143, 168, 155, 0.35), 0 12px 40px rgba(143, 168, 155, 0.14), 0 4px 16px rgba(0, 0, 0, 0.06)",
-            }
-        }
-        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      <motion.article
+        variants={container}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        className="relative"
       >
-        {/* ── INITIAL STATE: Ultra-clean header — always visible ── */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 p-6 sm:p-8">
-          <div className="flex flex-col gap-1.5">
-            {/* Company + Role */}
-            <div className="flex items-center gap-3">
-              {/* HD Bank logo */}
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shrink-0 shadow-md">
-                <span className="text-white text-xs font-black tracking-tight">HD</span>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-neutral-900 dark:text-white leading-none">
-                  {exp.company}
-                </h3>
-                <p className="text-sm text-accent-light dark:text-accent-dark font-semibold mt-0.5">
-                  {exp.role}
-                </p>
+        {/* ── Header ── */}
+        <motion.header
+          variants={item}
+          className="flex flex-col sm:flex-row sm:items-start justify-between gap-5 mb-8"
+        >
+          <div className="flex items-start gap-4 min-w-0">
+            <div
+              className="w-14 h-14 rounded-2xl bg-neutral-900 dark:bg-white flex items-center justify-center shrink-0 shadow-sm"
+              aria-hidden="true"
+            >
+              <span className="text-white dark:text-neutral-900 text-base font-black tracking-tight">
+                HD
+              </span>
+            </div>
+            <div className="min-w-0">
+              <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 dark:text-white leading-tight tracking-tight">
+                {exp.role}
+              </h3>
+              <p className="text-base md:text-lg font-semibold text-[#5E7A6C] dark:text-accent-dark mt-0.5">
+                {exp.company}
+              </p>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+                <span className="inline-flex items-center gap-1.5">
+                  <CalendarDays className="w-3.5 h-3.5" aria-hidden="true" />
+                  {exp.period}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+                  {exp.location}
+                </span>
               </div>
             </div>
-
-            {/* Single high-impact line — the one essential accomplishment */}
-            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1 max-w-[52ch] leading-relaxed">
-              {exp.summary}
-            </p>
           </div>
 
-          <div className="flex flex-col items-start sm:items-end gap-2 shrink-0">
-            <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400 whitespace-nowrap">
-              {exp.period}
+          <span className="self-start inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold border border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 shrink-0">
+            <span className="relative flex w-2 h-2" aria-hidden="true">
+              <span className="absolute inset-0 rounded-full bg-emerald-500 opacity-60 motion-safe:animate-ping" />
+              <span className="relative w-2 h-2 rounded-full bg-emerald-500" />
             </span>
-            <span className="text-[10px] text-neutral-400 dark:text-neutral-500">
-              {exp.location}
-            </span>
+            {exp.currentBadge}
+          </span>
+        </motion.header>
 
-            {/* Hover hint — fades out when expanded */}
-            <AnimatePresence>
-              {!isExpanded && (
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="mt-2 text-[10px] font-medium text-neutral-300 dark:text-neutral-600 hidden sm:block"
-                  aria-hidden="true"
+        {/* ── Summary ── */}
+        <motion.p
+          variants={item}
+          className="text-base md:text-lg leading-relaxed text-neutral-700 dark:text-neutral-300 max-w-3xl mb-8"
+        >
+          {exp.summary}
+        </motion.p>
+
+        {/* ── Stats ── */}
+        <motion.dl variants={item} className="grid grid-cols-3 gap-3 md:gap-4 mb-12">
+          {exp.stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="flex flex-col-reverse justify-end rounded-2xl border border-neutral-200/70 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/50 px-3 py-4 md:px-5 md:py-5"
+            >
+              <dt className="mt-1 text-[11px] md:text-xs font-medium text-neutral-500 dark:text-neutral-400 leading-snug">
+                {stat.label}
+              </dt>
+              <dd className="text-2xl md:text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white tabular-nums">
+                {stat.value}
+                <span className="text-accent-light dark:text-accent-dark">{stat.suffix}</span>
+              </dd>
+            </div>
+          ))}
+        </motion.dl>
+
+        {/* ── Contributions + Projects ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-12 mb-12">
+          <motion.div variants={item} className="lg:col-span-3">
+            <SubHeading>{exp.contributionsTitle}</SubHeading>
+            <ol className="flex flex-col">
+              {exp.highlights.map((text, i) => (
+                <li
+                  key={text}
+                  className="group flex gap-4 py-3 border-t first:border-t-0 border-neutral-200/60 dark:border-neutral-800/70"
                 >
-                  {supportsHoverRef.current ? "hover to expand" : "tap to expand"} →
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </div>
+                  <span className="font-mono text-xs font-semibold text-neutral-400 dark:text-neutral-500 pt-0.5 w-5 shrink-0 tabular-nums group-hover:text-accent-light dark:group-hover:text-accent-dark transition-colors">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-sm md:text-[15px] leading-relaxed text-neutral-700 dark:text-neutral-300">
+                    {text}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </motion.div>
+
+          <motion.div variants={item} className="lg:col-span-2">
+            <SubHeading>{exp.projectsTitle}</SubHeading>
+            <ol className="relative flex flex-col gap-5 pl-5 before:absolute before:left-[5px] before:top-2 before:bottom-2 before:w-px before:bg-neutral-200 dark:before:bg-neutral-800">
+              {projects.map((p) => {
+                const [role, domain] = p.category.split("|").map((s) => s.trim());
+                return (
+                  <li key={p.id} className="relative">
+                    <span
+                      className="absolute -left-5 top-1.5 w-[11px] h-[11px] rounded-full border-2 border-accent-light dark:border-accent-dark bg-white dark:bg-neutral-950"
+                      aria-hidden="true"
+                    />
+                    <span className="font-mono text-[11px] font-semibold text-neutral-400 dark:text-neutral-500">
+                      {p.year}
+                    </span>
+                    <p className="text-sm font-semibold text-neutral-900 dark:text-white leading-snug mt-0.5">
+                      {p.title}
+                    </p>
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+                      {domain ?? role}
+                    </p>
+                  </li>
+                );
+              })}
+            </ol>
+          </motion.div>
         </div>
 
-        {/* ── HOVER/EXPANDED STATE: Rich dashboard reveal ── */}
-        <AnimatePresence initial={false}>
-          {isExpanded && (
-            <motion.div
-              key="dashboard"
-              variants={expandVariants}
-              initial="collapsed"
-              animate="expanded"
-              exit="collapsed"
-              className="overflow-hidden"
-            >
-              <div
-                className="border-t border-neutral-200/60 dark:border-neutral-800/60 bg-neutral-50/50 dark:bg-neutral-900/30 px-6 sm:px-8 py-8"
-                onClick={(e) => e.stopPropagation()}
+        {/* ── Tech stack ── */}
+        <motion.div variants={item} className="mb-10">
+          <SubHeading>{exp.techTitle}</SubHeading>
+          <ul className="flex flex-wrap gap-2">
+            {exp.techStack.map((tech) => (
+              <li
+                key={tech}
+                className="group inline-flex items-center gap-2 pl-2.5 pr-3 py-1.5 rounded-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
               >
-                {/* Dashboard header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-                      Live Dashboard · Internal Metrics
-                    </span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-300 dark:text-neutral-600">
-                    HDBank Intranet © 2026
+                <span className="text-neutral-500 dark:text-neutral-400 group-hover:hidden">
+                  <TechIcon name={tech} className="w-3.5 h-3.5" />
+                </span>
+                <span className="hidden group-hover:inline">
+                  <TechIcon name={tech} className="w-3.5 h-3.5" colored />
+                </span>
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        {/* ── Auth & data flow ── */}
+        <motion.div
+          variants={item}
+          className="rounded-2xl border border-neutral-200/70 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-900/40 p-4 md:p-5"
+        >
+          <SubHeading>{exp.flowTitle}</SubHeading>
+          <ol className="flex flex-col md:flex-row md:items-stretch gap-0">
+            {exp.flow.map((step, i) => (
+              <li key={step.label} className="flex flex-col md:flex-row md:items-center md:flex-1 min-w-0">
+                <div className="flex-1 self-stretch min-w-0 rounded-xl bg-white dark:bg-neutral-950 border border-neutral-200/70 dark:border-neutral-800 px-3 py-2.5">
+                  <p className="text-xs font-bold text-neutral-900 dark:text-white leading-snug">
+                    {step.label}
+                  </p>
+                  <p className="text-[11px] text-neutral-500 dark:text-neutral-400 leading-snug mt-0.5">
+                    {step.detail}
+                  </p>
+                </div>
+                {i < exp.flow.length - 1 && (
+                  <span
+                    className="flex justify-center md:px-1.5 py-1 md:py-0 text-neutral-300 dark:text-neutral-600"
+                    aria-hidden="true"
+                  >
+                    <ArrowRight className="hidden md:block w-3.5 h-3.5" />
+                    <ChevronRight className="md:hidden w-3.5 h-3.5 rotate-90" />
                   </span>
-                </div>
-
-                {/* Stats Grid */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-                  {exp.stats.map((stat, i) => (
-                    <StatCard
-                      key={stat.label}
-                      label={stat.label}
-                      rawValue={stat.value}
-                      suffix={stat.suffix}
-                      delay={i * 0.1 + 0.1}
-                      active={isExpanded}
-                    />
-                  ))}
-                </div>
-
-                {/* Chart + Highlights Row */}
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-6">
-                  {/* Banking Workflow Simulator */}
-                  <div className="p-5 rounded-2xl bg-white dark:bg-neutral-800/40 border border-neutral-100 dark:border-neutral-700/50">
-                    <BankingWorkflowSimulator active={isExpanded} />
-                  </div>
-
-                  {/* Highlights list */}
-                  <div className="p-5 rounded-2xl bg-white dark:bg-neutral-800/40 border border-neutral-100 dark:border-neutral-700/50">
-                    <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 block mb-3">
-                      Key Achievements
-                    </span>
-                    <ul className="flex flex-col gap-2">
-                      {exp.highlights.map((item, i) => (
-                        <motion.li
-                          key={i}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={isExpanded ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                          transition={{ duration: 0.4, delay: i * 0.07 + 0.3 }}
-                          className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-300"
-                        >
-                          <span className="text-accent-light dark:text-accent-dark mt-0.5 shrink-0">→</span>
-                          {item}
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Tech Stack Pills */}
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {exp.techStack.map((tech, i) => (
-                    <motion.span
-                      key={tech}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={isExpanded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.3, delay: i * 0.04 + 0.5 }}
-                      className="px-3 py-1 rounded-full text-xs font-semibold bg-neutral-900 dark:bg-neutral-100 text-neutral-100 dark:text-neutral-900"
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
+                )}
+              </li>
+            ))}
+          </ol>
+        </motion.div>
+      </motion.article>
     </section>
   );
 }

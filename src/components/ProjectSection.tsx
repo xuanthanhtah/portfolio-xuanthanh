@@ -129,7 +129,7 @@ function BellCurveViz({ active }: { active: boolean }) {
       <div className="grid grid-cols-3 gap-2">
         {[
           { label: "Form Types", value: "12+" },
-          { label: "Component Library", value: "30% faster" },
+          { label: "Component Library", value: "Ant Design" },
           { label: "Azure SSO", value: "✓ Integrated" },
         ].map((s, i) => (
           <motion.div

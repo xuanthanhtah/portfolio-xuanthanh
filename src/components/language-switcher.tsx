@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Globe, ChevronDown } from "lucide-react";
+import { localeHref } from "@/lib/template-store";
 
 export function LanguageSwitcher() {
   const pathname = usePathname();
@@ -30,13 +31,9 @@ export function LanguageSwitcher() {
     // Set preference cookie to preserve choice
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
 
-    // Replace current locale segment in URL path
-    const segments = pathname.split("/");
-    segments[1] = newLocale;
-    const newPath = segments.join("/");
-
+    // Replace the locale segment, keeping ?template=… so the theme pack survives
     setIsOpen(false);
-    router.push(newPath);
+    router.push(localeHref(pathname, newLocale));
   };
 
   const dropdownVariants: Variants = {

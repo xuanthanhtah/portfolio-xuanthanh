@@ -25,7 +25,6 @@ import { useTexture, Html } from "@react-three/drei";
 import { useReducedMotion, motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import * as THREE from "three";
-import { Dictionary } from "@/lib/dictionary";
 
 // ─── Tech data ─────────────────────────────────────────────────────────────────
 interface TechNode {
@@ -40,24 +39,24 @@ interface TechNode {
 
 const TECH_NODES: TechNode[] = [
   // Ring 0 — 3 nodes
-  { name: "React", slug: "react", docUrl: "https://react.dev", note: "Core UI library across all 4 HDBank enterprise apps", ring: 0, angleOffset: 0, brandColor: "#61dafb" },
+  { name: "React", slug: "react", docUrl: "https://react.dev", note: "Core UI library across every HDBank platform I have built", ring: 0, angleOffset: 0, brandColor: "#61dafb" },
   { name: "TypeScript", slug: "typescript", docUrl: "https://typescriptlang.org", note: "End-to-end type safety across banking form pipelines", ring: 0, angleOffset: Math.PI * 0.67, brandColor: "#3178c6" },
   { name: "JavaScript", slug: "javascript", docUrl: "https://developer.mozilla.org/en-US/docs/Web/JavaScript", note: "Legacy-layer scripting for Core Banking integrations", ring: 0, angleOffset: Math.PI * 1.34, brandColor: "#f7df1e" },
 
   // Ring 1 — 5 nodes
-  { name: "Next.js", slug: "nextdotjs", docUrl: "https://nextjs.org", note: "App Router powering this portfolio and internal SSR tools", ring: 1, angleOffset: 0, brandColor: "#ffffff" },
+  { name: "Next.js", slug: "nextdotjs", docUrl: "https://nextjs.org", note: "App Router powering this portfolio", ring: 1, angleOffset: 0, brandColor: "#ffffff" },
   { name: "Tailwind CSS", slug: "tailwindcss", docUrl: "https://tailwindcss.com", note: "Utility-first styling across KPI PowerHome & EHRP UIs", ring: 1, angleOffset: Math.PI * 0.4, brandColor: "#06b6d4" },
   { name: "Zustand", slug: "npm", docUrl: "https://docs.pmnd.rs/zustand", note: "Global state for banking session and auth contexts", ring: 1, angleOffset: Math.PI * 0.8, brandColor: "#9ca3af" },
-  { name: "React Query", slug: "reactquery", docUrl: "https://tanstack.com/query/latest", note: "Cut API calls by 40% in EHRP via smart caching", ring: 1, angleOffset: Math.PI * 1.2, brandColor: "#ff4154" },
+  { name: "React Query", slug: "reactquery", docUrl: "https://tanstack.com/query/latest", note: "Data fetching & caching for large grids in EHRP and KPI PowerHome", ring: 1, angleOffset: Math.PI * 1.2, brandColor: "#ff4154" },
   { name: "Ant Design", slug: "antdesign", docUrl: "https://ant.design", note: "Enterprise component library for KPI PowerHome dashboards", ring: 1, angleOffset: Math.PI * 1.6, brandColor: "#0170fe" },
 
   // Ring 2 — 8 nodes
   { name: "HTML5", slug: "html5", docUrl: "https://developer.mozilla.org/en-US/docs/Web/HTML", note: "Semantic markup foundation for accessible banking UIs", ring: 2, angleOffset: 0, brandColor: "#e34f26" },
   { name: "CSS3", slug: "css", docUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS", note: "Custom animations and scroll-driven interactions", ring: 2, angleOffset: Math.PI * 0.25, brandColor: "#1572b6" },
-  { name: "Astro", slug: "astro", docUrl: "https://astro.build", note: "Static site generator for internal documentation portals", ring: 2, angleOffset: Math.PI * 0.5, brandColor: "#bc52ee" },
-  { name: "Redux Toolkit", slug: "redux", docUrl: "https://redux-toolkit.js.org", note: "Legacy state management for Money Transfer module", ring: 2, angleOffset: Math.PI * 0.75, brandColor: "#764abc" },
+  { name: "i18n", slug: "i18next", docUrl: "https://www.i18next.com", note: "Multi-language interfaces for the EHRP platform", ring: 2, angleOffset: Math.PI * 0.5, brandColor: "#26a69a" },
+  { name: "Redux Toolkit", slug: "redux", docUrl: "https://redux-toolkit.js.org", note: "State management in earlier internal banking platforms", ring: 2, angleOffset: Math.PI * 0.75, brandColor: "#764abc" },
   { name: "Microfrontend", slug: "webpack", docUrl: "https://webpack.js.org/concepts/module-federation/", note: "Module Federation for scalable micro-app architecture", ring: 2, angleOffset: Math.PI * 1.0, brandColor: "#8DD6F9" },
-  { name: "Azure AD", slug: "auth0", docUrl: "https://learn.microsoft.com/azure/active-directory", note: "OAuth2 + MSAL silent refresh flow across all banking apps", ring: 2, angleOffset: Math.PI * 1.25, brandColor: "#0078d4" },
+  { name: "Azure AD", slug: "auth0", docUrl: "https://learn.microsoft.com/azure/active-directory", note: "OAuth2 SSO + JWT refresh-token flow across banking apps", ring: 2, angleOffset: Math.PI * 1.25, brandColor: "#0078d4" },
   { name: "Git", slug: "git", docUrl: "https://git-scm.com", note: "GitFlow branching strategy across all enterprise repos", ring: 2, angleOffset: Math.PI * 1.5, brandColor: "#f05032" },
   { name: "Material UI", slug: "mui", docUrl: "https://mui.com", note: "Secondary component library for internal admin panels", ring: 2, angleOffset: Math.PI * 1.75, brandColor: "#007fff" },
 ];
@@ -319,32 +318,22 @@ function StaticFallback() {
 }
 
 // ─── Main exported component ────────────────────────────────────────────────────
-interface SkillsCloudProps {
-  dict: Dictionary;
+// Loaded lazily (next/dynamic, ssr: false) from SkillsSection's "3D Orbit" tab.
+interface SkillsOrbitProps {
+  hint: string;
 }
 
-export function SkillsCloud({ dict }: SkillsCloudProps) {
+export default function SkillsOrbit({ hint }: SkillsOrbitProps) {
   const reduceMotion = useReducedMotion();
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const { resolvedTheme } = useTheme();
-  const skills = dict.skills;
 
   // Derive isDark from resolvedTheme — safe default to dark until hydrated
   const isDark = resolvedTheme !== "light";
 
   return (
-    <section
-      id="skills"
-      className="py-12 border-b border-neutral-200/60 dark:border-neutral-800/60"
-    >
-      <div className="mb-6">
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-500">
-          {skills.sectionTitle}
-        </span>
-        <p className="text-xs text-neutral-400 dark:text-neutral-500 mt-1">
-          Hover to preview · Click to open official docs
-        </p>
-      </div>
+    <div>
+      <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-3">{hint}</p>
 
       {reduceMotion ? (
         <StaticFallback />
@@ -377,10 +366,10 @@ export function SkillsCloud({ dict }: SkillsCloudProps) {
           <Tooltip tip={tooltip} />
 
           <div className="absolute bottom-3 right-4 text-[9px] font-mono text-neutral-300 dark:text-neutral-600 select-none pointer-events-none">
-            16 technologies · 3 orbit rings
+            {TECH_NODES.length} technologies · 3 orbit rings
           </div>
         </div>
       )}
-    </section>
+    </div>
   );
 }

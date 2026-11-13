@@ -14,7 +14,7 @@
       "line1": "Xây dựng các hệ thống hiệu năng cao"
     },
     "subtext": "Kỹ sư Phần mềm Frontend với hơn 3 năm kinh nghiệm phát triển các ứng dụng web an toàn, có khả năng mở rộng bằng React, TypeScript và các UI framework hiện đại.",
-    "ctaText": "Liên hệ",
+    "ctaText": "Liên hệ với tôi",
     "cvText": "Hồ sơ (CV)"
   },
   "philosophy": {
@@ -36,12 +36,12 @@
       "motion": {
         "tag": "Performance",
         "title": "Tối ưu hóa ứng dụng",
-        "description": "• Rút ngắn thời gian tải trang Dashboard xuống dưới 1 giây.\n• Giảm 40% số lượng request thừa lên API thông qua chiến lược caching và debounce hợp lý.\n• Tránh re-render thừa trên các UI chứa table/chart dữ liệu lớn."
+        "description": "• Tối ưu fetching và caching dữ liệu với React Query, giảm các API call không cần thiết trên hồ sơ nhân sự phức tạp.\n• Xây dựng bảng dữ liệu lớn, lọc được tập dữ liệu nhân viên khổng lồ mà không ảnh hưởng hiệu năng trình duyệt.\n• Dẫn dắt các sáng kiến tối ưu hiệu năng UI, giảm thao tác thừa trong quy trình nghiệp vụ hằng ngày."
       },
       "system": {
         "tag": "UI/UX Development",
         "title": "Hệ thống Thành phần UI (Design System)",
-        "description": "Kinh nghiệm làm việc sâu với Ant Design, Tailwind CSS, Material UI. Có tư duy đóng gói các component dùng chung (reusable components) giúp tăng 30% tốc độ code cho team."
+        "description": "Kinh nghiệm làm việc sâu với Ant Design, Tailwind CSS, Material UI. Có tư duy đóng gói các component dùng chung (reusable components) giúp team triển khai tính năng mới nhanh hơn và giữ UI nhất quán."
       },
       "tooling": {
         "tag": "Workflow",
@@ -92,26 +92,21 @@
         "suffix": ""
       },
       {
-        "label": "Tiết kiệm thời gian dev",
-        "value": "30",
-        "suffix": "%"
+        "label": "Năm tại HDBank",
+        "value": "3",
+        "suffix": "+"
       },
       {
-        "label": "Giảm API không cần thiết",
-        "value": "40",
-        "suffix": "%"
-      },
-      {
-        "label": "Cải thiện tốc độ tải",
-        "value": "1",
-        "suffix": "s"
+        "label": "Hệ thống ngân hàng",
+        "value": "9",
+        "suffix": ""
       }
     ],
     "highlights": [
       "Xây dựng ứng dụng doanh nghiệp phục vụ hơn 15.000 nhân viên",
-      "Chuẩn hóa thư viện component dùng chung, giảm 30% thời gian dev",
-      "Tối ưu thời gian tải dashboard xuống 1 giây nhờ React Query caching",
-      "Tích hợp Azure AD OAuth2 + JWT silent refresh flow bảo mật",
+      "Chuẩn hóa thư viện component dùng chung trên nền Ant Design cho các module dự án",
+      "Tối ưu fetching và caching dữ liệu bằng React Query cho các bảng dữ liệu lớn",
+      "Tích hợp SSO Azure AD OAuth2 + JWT refresh-token interceptor",
       "Đồng bộ dữ liệu Core Banking và chức năng import/export Excel"
     ],
     "techStack": [
@@ -124,7 +119,33 @@
       "Redux Toolkit",
       "Azure AD"
     ],
-    "clickHint": "Nhấp để xem chi tiết"
+    "currentBadge": "Hiện tại",
+    "contributionsTitle": "Đóng góp chính",
+    "projectsTitle": "Dự án tiêu biểu",
+    "techTitle": "Công nghệ sử dụng",
+    "flowTitle": "Cách các thành phần kết nối",
+    "flow": [
+      {
+        "label": "Azure AD SSO",
+        "detail": "Đăng nhập OAuth2"
+      },
+      {
+        "label": "JWT interceptor",
+        "detail": "Tự động làm mới token"
+      },
+      {
+        "label": "Core Banking",
+        "detail": "Đồng bộ dữ liệu"
+      },
+      {
+        "label": "React Query",
+        "detail": "Fetching & caching"
+      },
+      {
+        "label": "Ant Design UI",
+        "detail": "Component dùng chung"
+      }
+    ]
   },
   "skills": {
     "sectionTitle": "Kỹ năng & Chuyên môn",
@@ -133,16 +154,13 @@
         "category": "Ngôn ngữ lập trình",
         "items": [
           {
-            "name": "TypeScript",
-            "level": 90
+            "name": "TypeScript"
           },
           {
-            "name": "JavaScript",
-            "level": 92
+            "name": "JavaScript"
           },
           {
-            "name": "HTML / CSS",
-            "level": 95
+            "name": "HTML / CSS"
           }
         ]
       },
@@ -150,20 +168,16 @@
         "category": "Frameworks & Thư viện",
         "items": [
           {
-            "name": "React",
-            "level": 92
+            "name": "React"
           },
           {
-            "name": "Next.js",
-            "level": 85
+            "name": "Next.js"
           },
           {
-            "name": "Astro",
-            "level": 72
+            "name": "Micro Front-end"
           },
           {
-            "name": "jQuery",
-            "level": 78
+            "name": "jQuery"
           }
         ]
       },
@@ -171,16 +185,13 @@
         "category": "Hệ thống Styling",
         "items": [
           {
-            "name": "Tailwind CSS",
-            "level": 93
+            "name": "Tailwind CSS"
           },
           {
-            "name": "Ant Design",
-            "level": 88
+            "name": "Ant Design"
           },
           {
-            "name": "Material UI",
-            "level": 82
+            "name": "Material UI"
           }
         ]
       },
@@ -188,16 +199,13 @@
         "category": "State & Dữ liệu",
         "items": [
           {
-            "name": "React Query",
-            "level": 90
+            "name": "React Query"
           },
           {
-            "name": "Zustand",
-            "level": 88
+            "name": "Zustand"
           },
           {
-            "name": "Redux Toolkit",
-            "level": 80
+            "name": "Redux Toolkit"
           }
         ]
       },
@@ -205,20 +213,23 @@
         "category": "Công cụ & DevOps",
         "items": [
           {
-            "name": "GitFlow",
-            "level": 88
+            "name": "GitFlow"
           },
           {
-            "name": "IIS Server",
-            "level": 70
+            "name": "IIS Server"
           },
           {
-            "name": "Azure AD",
-            "level": 75
+            "name": "Azure AD"
           }
         ]
       }
-    ]
+    ],
+    "subtitle": "Những công cụ mình dùng hằng ngày, chia theo vai trò.",
+    "viewGrid": "Theo nhóm",
+    "viewOrbit": "Quỹ đạo 3D",
+    "hdbankLegend": "Đã dùng thực tế tại HDBank",
+    "orbitHint": "Di chuột để xem · Nhấp để mở tài liệu chính thức",
+    "toolsCount": "công cụ"
   },
   "education": {
     "sectionTitle": "Học vấn",
@@ -228,7 +239,7 @@
     "period": "2019 – 2023",
     "gpa": "8.35 / 10",
     "highlights": [
-      "Chuyên ngành Kỹ thuật Phần mềm",
+      "Chuyên ngành Công nghệ Thông tin",
       "GPA: 8.35/10"
     ]
   },
@@ -243,5 +254,44 @@
       "resume": "Resume"
     },
     "signature": "Clean code & Minimalist UI.\n© 2026 Lê Xuân Thành."
+  },
+  "xmas": {
+    "treeHint": "Kéo để xoay · Nhấp vào cây để đổi đèn · Rê chuột lên quả châu",
+    "modeButton": "Đổi chế độ đèn",
+    "snowOn": "Bật tuyết rơi",
+    "snowOff": "Tắt tuyết rơi"
+  },
+  "palette": {
+    "placeholder": "Gõ lệnh hoặc tìm kiếm…",
+    "trigger": "Tìm kiếm hoặc chuyển tới…",
+    "empty": "Không có kết quả. Thử “kỹ năng” hoặc “theme”.",
+    "groups": {
+      "navigate": "Điều hướng",
+      "actions": "Hành động",
+      "links": "Liên kết"
+    },
+    "items": {
+      "home": "Lên đầu trang",
+      "experience": "Kinh nghiệm làm việc",
+      "skills": "Kỹ năng & chuyên môn",
+      "education": "Học vấn",
+      "contact": "Liên hệ",
+      "themeDark": "Chuyển sang giao diện tối",
+      "themeLight": "Chuyển sang giao diện sáng",
+      "language": "Switch to English",
+      "snowOn": "Bật tuyết rơi",
+      "snowOff": "Tắt tuyết rơi",
+      "copyEmail": "Sao chép địa chỉ email",
+      "copied": "Đã sao chép!",
+      "cv": "Mở CV của mình",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Gửi email"
+    },
+    "footer": {
+      "navigate": "di chuyển",
+      "select": "chọn",
+      "close": "đóng"
+    }
   }
 }
